@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ article.title }} - Mind Check{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'insights' %}">Insights</a></li>
+                    <li class="breadcrumb-item active">Article</li>
+                </ol>
+            </nav>
+            
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <h1 class="mb-3">{{ article.title }}</h1>
+                    
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="flex-shrink-0">
+                            {% if article.author.userprofile.profile_picture %}
+                            <img src="{{ article.author.userprofile.profile_picture.url }}" 
+                                 alt="{{ article.author.username }}" 
+                                 class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                            {% else %}
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" 
+                                 style="width: 50px; height: 50px; font-size: 20px;">
+                                {{ article.author.username|first|upper }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-0">{{ article.author.username }}</h5>
+                            <small class="text-muted">{{ article.created_at|date:"F d, Y · H:i" }}</small>
+                        </div>
+                        <div>
+                            <button class="btn btn-outline-danger like-btn" data-article-id="{{ article.id }}">
+                                <i class="fas fa-heart"></i> 
+                                <span class="like-count">{{ article.likes.count }}</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="article-content mb-4" style="font-size: 1.1rem; line-height: 1.8;">
+                        {{ article.content|linebreaks }}
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mt-5 pt-4 border-top">
+                        <div>
+                            {% if article.author == user %}
+                            <a href="{% url 'edit_article' article.id %}" class="btn btn-warning">
+                                <i class="fas fa-edit me-2"></i>Edit
+                            </a>
+                            <a href="{% url 'delete_article' article.id %}" class="btn btn-danger ms-2">
+                                <i class="fas fa-trash me-2"></i>Delete
+                            </a>
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'insights' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Insights
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const likeBtn = document.querySelector('.like-btn');
+    if (likeBtn) {
+        likeBtn.addEventListener('click', function() {
+            const articleId = this.dataset.articleId;
+            const likeBtn = this;
+            const likeCountSpan = this.querySelector('.like-count');
+            
+            fetch(`/insights/${articleId}/like/`, { 
+                method: 'POST', 
+                headers: { 
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.liked) {
+                    likeBtn.classList.remove('btn-outline-danger');
+                    likeBtn.classList.add('btn-danger');
+                    likeBtn.innerHTML = '<i class="fas fa-heart"></i> Liked (<span class="like-count">' + data.count + '</span>)';
+                } else {
+                    likeBtn.classList.remove('btn-danger');
+                    likeBtn.classList.add('btn-outline-danger');
+                    likeBtn.innerHTML = '<i class="fas fa-heart"></i> Like (<span class="like-count">' + data.count + '</span>)';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to like article. Please try again.');
+            });
+        });
+    }
+});
+</script>
+{% endblock %}

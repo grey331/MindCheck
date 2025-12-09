@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}My Bookings - Mind Check{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-5">My Consultations</h1>
+    <div class="row">
+        {% for booking in bookings %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ booking.psychologist.user.first_name }} {{ booking.psychologist.user.last_name }}</h5>
+                    <p><strong>Date & Time:</strong> {{ booking.scheduled_date|date:"M d, Y g:i A" }}</p>
+                    <p><strong>Duration:</strong> {{ booking.duration_minutes }} minutes</p>
+                    <p><strong>Status:</strong> 
+                        <span class="badge bg-{% if booking.status == 'confirmed' %}success{% elif booking.status == 'pending' %}warning{% elif booking.status == 'completed' %}primary{% else %}danger{% endif %}">
+                            {{ booking.get_status_display }}
+                        </span>
+                    </p>
+                    {% if booking.notes %}
+                    <p><strong>Notes:</strong> {{ booking.notes }}</p>
+                    {% endif %}
+                    {% if booking.status == 'pending' %}
+                    <a href="{% url 'payment_initiate' booking.id %}" class="btn btn-sm btn-primary">Complete Payment</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center text-muted">You haven't booked any consultations yet.</p>
+            <div class="text-center mt-3">
+                <a href="{% url 'consultations' %}" class="btn btn-primary">Browse Psychologists</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

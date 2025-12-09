@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}Pricing - Mind Check{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-5">Consultation Pricing</h1>
+    
+    <!-- Psychologist Booking Rates Section -->
+    <div class="card mb-5 border-0 shadow">
+        <div class="card-body p-5">
+            <h3 class="text-center mb-4"><i class="fas fa-user-md text-primary me-2"></i>Psychologist Consultation Rates</h3>
+            <p class="lead text-center text-muted mb-5">
+                One-on-one sessions with certified mental health professionals
+            </p>
+            
+            <div class="row text-center">
+                <!-- Standard Session -->
+                <div class="col-md-4 mb-4">
+                    <div class="border rounded p-4 h-100">
+                        <div class="mb-3">
+                            <span class="badge bg-primary">Most Popular</span>
+                        </div>
+                        <h4>Standard Session</h4>
+                        <div class="price-display my-4">
+                            <span class="display-5 fw-bold">KSh 2,000</span>
+                            <p class="text-muted">per hour</p>
+                        </div>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>60-minute video call</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Personalized attention</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Confidential session</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Extended Session -->
+                <div class="col-md-4 mb-4">
+                    <div class="border rounded p-4 h-100">
+                        <h4>Extended Session</h4>
+                        <div class="price-display my-4">
+                            <span class="display-5 fw-bold">KSh 4,000</span>
+                            <p class="text-muted">per 2 hours</p>
+                        </div>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>120-minute deep dive</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Comprehensive assessment</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Detailed action plan</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Package Deal -->
+                <div class="col-md-4 mb-4">
+                    <div class="border rounded p-4 h-100 bg-light">
+                        <div class="mb-3">
+                            <span class="badge bg-success">Best Value</span>
+                        </div>
+                        <h4>Package Deal</h4>
+                        <div class="price-display my-4">
+                            <span class="display-5 fw-bold">KSh 8,000</span>
+                            <p class="text-muted">for 4 sessions</p>
+                            
+                        </div>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>4 one-hour sessions</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Progress tracking</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Continuous support</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Call to Action Button -->
+            <div class="text-center mt-5 pt-3">
+                <a href="{% url 'consultations' %}" class="btn btn-primary btn-lg px-5 py-3">
+                    <i class="fas fa-search me-2"></i>
+                    Browse Psychologists
+                </a>
+                <p class="text-muted mt-3">
+                    Select from our team of professional psychologists and book your session
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Simple Process Section -->
+    <div class="row mt-5">
+        <div class="col-md-8 mx-auto">
+            <h3 class="text-center mb-4">How It Works</h3>
+            <div class="row text-center">
+                <div class="col-md-4 mb-3">
+                    <div class="p-3">
+                        <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px;">
+                            <i class="fas fa-search fa-2x"></i>
+                        </div>
+                        <h5>1. Find a Psychologist</h5>
+                        <p class="text-muted">Browse profiles and specialties</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="p-3">
+                        <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px;">
+                            <i class="fas fa-calendar-alt fa-2x"></i>
+                        </div>
+                        <h5>2. Book a Session</h5>
+                        <p class="text-muted">Choose date and time that works for you</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="p-3">
+                        <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px;">
+                            <i class="fas fa-video fa-2x"></i>
+                        </div>
+                        <h5>3. Start Your Session</h5>
+                        <p class="text-muted">Connect via secure video call at your scheduled time</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.price-display {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 25px;
+    border-radius: 12px;
+    margin: 20px 0;
+}
+.border {
+    border-color: #e0e0e0 !important;
+    transition: all 0.3s ease;
+}
+.border:hover {
+    border-color: #0d6efd !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+.btn-lg {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+</style>
+{% endblock %}

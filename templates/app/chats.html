@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Chats - Mind Check{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row h-100">
+        <div class="col-md-4">
+            <h3>Your Conversations</h3>
+            <div class="list-group">
+                {% for conversation in conversations %}
+                    {% with other_user=conversation.participants.exclude|dictsort:"id" %}
+                        {% for user in other_user %}
+                            <a href="{% url 'chat_detail' user.id %}" class="list-group-item list-group-item-action">
+                                <h6 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h6>
+                                <small class="text-muted">@{{ user.username }}</small>
+                            </a>
+                        {% endfor %}
+                    {% endwith %}
+                {% empty %}
+                <p class="text-muted p-3">No conversations yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <p class="text-center text-muted">Select a conversation to start messaging</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

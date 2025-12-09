@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Consultations - Mind Check{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-5">Our Psychologists</h1>
+    <div class="row">
+        {% for psychologist in psychologists %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div style="width: 80px; height: 80px; margin: 0 auto 15px; background: var(--accent-color); border-radius: 50%;"></div>
+                    <h5 class="card-title text-center">{{ psychologist.user.first_name }} {{ psychologist.user.last_name }}</h5>
+                    <p class="text-center text-muted mb-3">{{ psychologist.specialization }}</p>
+                    <p class="text-center"><strong>Rate:</strong> KES {{ psychologist.hourly_rate }}/hour</p>
+                    <p class="text-center"><i class="fas fa-star text-warning"></i> {{ psychologist.rating }}/5</p>
+                    <p>{{ psychologist.bio }}</p>
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'psychologist_detail' psychologist.id %}" class="btn btn-primary">View Profile</a>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'book_consultation' psychologist.id %}" class="btn btn-outline-primary">Book Now</a>
+                        {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary">Login to Book</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center text-muted">No psychologists available at the moment.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

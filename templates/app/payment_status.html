@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Payment Status</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5>Booking Details</h5>
+            <p><strong>Status:</strong> 
+                <span class="badge {% if payment.status == 'completed' %}bg-success{% elif payment.status == 'pending' %}bg-warning{% else %}bg-danger{% endif %}">
+                    {{ payment.status|title }}
+                </span>
+            </p>
+            <p><strong>Amount:</strong> KSh {{ payment.amount }}</p>
+            <p><strong>M-Pesa Reference:</strong> {{ payment.mpesa_reference|default:"Pending..." }}</p>
+            <p><strong>Phone:</strong> {{ payment.phone_number }}</p>
+            <p><strong>Date:</strong> {{ payment.created_at|date:"F d, Y H:i" }}</p>
+            
+            {% if payment.status == 'pending' %}
+                <div class="alert alert-info">
+                    <p>Please check your phone to complete the M-Pesa payment.</p>
+                    <p>You'll receive a prompt on your phone to enter your M-Pesa PIN.</p>
+                </div>
+            {% elif payment.status == 'completed' %}
+                <div class="alert alert-success">
+                    <p>Payment completed successfully!</p>
+                    <a href="{% url 'my_bookings' %}" class="btn btn-success">View My Bookings</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Consultation - Mind Check{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="mb-4">Book Consultation</h1>
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ psychologist.user.first_name }} {{ psychologist.user.last_name }}</h5>
+                    <p class="text-muted">{{ psychologist.specialization }}</p>
+                    <p><strong>Rate:</strong> KES {{ psychologist.hourly_rate }}/hour</p>
+                </div>
+            </div>
+            
+            <form method="post" class="card p-4">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="mb-3">
+                    <label for="phone_number" class="form-label">Phone Number (for M-Pesa)</label>
+                    <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="254712345678" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Proceed to Payment</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

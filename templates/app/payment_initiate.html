@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Complete Payment</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5>Booking Details</h5>
+            <p><strong>Psychologist:</strong> {{ booking.psychologist.name }}</p>
+            <p><strong>Date:</strong> {{ booking.date }}</p>
+            <p><strong>Time:</strong> {{ booking.time }}</p>
+            <p><strong>Amount:</strong> KSh {{ payment.amount }}</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="booking_id" value="{{ booking.id }}">
+                
+                <div class="mb-3">
+                    <label for="phone_number" class="form-label">M-Pesa Phone Number</label>
+                    <input type="text" 
+                           class="form-control" 
+                           id="phone_number" 
+                           name="phone_number" 
+                           placeholder="2547XXXXXXXX" 
+                           required>
+                    <div class="form-text">Enter the phone number registered with M-Pesa</div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    Pay KSh {{ payment.amount }} via M-Pesa
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
