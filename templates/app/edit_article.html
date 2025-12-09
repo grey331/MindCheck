@@ -44,40 +44,6 @@
                             {% endif %}
                         </div>
                         
-                        <!-- Category Field (if you have one) -->
-                        {% if form.category %}
-                        <div class="mb-4">
-                            <label for="id_category" class="form-label fw-bold">Category</label>
-                            <select name="category" id="id_category" class="form-select">
-                                <option value="">Select a category</option>
-                                {% for value, text in form.category.field.choices %}
-                                    <option value="{{ value }}" {% if form.category.value == value %}selected{% endif %}>
-                                        {{ text }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                            {% if form.category.errors %}
-                                <div class="text-danger small mt-1">{{ form.category.errors }}</div>
-                            {% endif %}
-                        </div>
-                        {% endif %}
-                        
-                        <!-- Tags Field (if you have one) -->
-                        {% if form.tags %}
-                        <div class="mb-4">
-                            <label for="id_tags" class="form-label fw-bold">Tags</label>
-                            <input type="text" 
-                                   name="tags" 
-                                   id="id_tags" 
-                                   class="form-control" 
-                                   value="{{ form.tags.value|default:'' }}"
-                                   placeholder="Add tags separated by commas (e.g., anxiety, self-care, tips)">
-                            <div class="form-text">Separate tags with commas</div>
-                            {% if form.tags.errors %}
-                                <div class="text-danger small mt-1">{{ form.tags.errors }}</div>
-                            {% endif %}
-                        </div>
-                        {% endif %}
                         
                         <div class="d-grid gap-2 mt-4">
                             <button type="submit" class="btn btn-primary btn-lg">

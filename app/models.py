@@ -109,6 +109,14 @@ class Booking(models.Model):
     
     def __str__(self):
         return f"{self.user.username} - {self.psychologist.user.first_name} - {self.scheduled_date}"
+class Appointment(models.Model):
+    booking = models.OneToOneField(Booking, on_delete=models.CASCADE, related_name='appointment')
+    started_at = models.DateTimeField(null=True, blank=True)
+    ended_at = models.DateTimeField(null=True, blank=True)
+    notes = models.TextField(blank=True)
+    
+    def __str__(self):
+        return f"Appointment for {self.booking.user.username} with {self.booking.psychologist.user.first_name}"
 
 class Payment(models.Model):
     STATUS_CHOICES = [

@@ -29,11 +29,10 @@ urlpatterns = [
     path('consultations/<int:psychologist_id>/', views.psychologist_detail, name='psychologist_detail'),
     path('consultations/<int:psychologist_id>/book/', views.book_consultation, name='book_consultation'),
     path('my-bookings/', views.my_bookings, name='my_bookings'),
+    path('my-appointments/', views.my_appointments, name='my_appointments'),
     
     # Payments
-    #path('payment/<int:booking_id>/', views.payment_initiate, name='payment_initiate'),
-    #path('api/initiate-mpesa/', views.initiate_mpesa_payment, name='initiate_mpesa'),
-    #path('api/mpesa-callback/', views.mpesa_callback, name='mpesa_callback'),
+    
     path('payment/<int:booking_id>/', views.payment_initiate, name='payment_initiate'),
     path('payment-status/<int:booking_id>/', views.payment_status, name='payment_status'),
     path('api/mpesa-callback/', views.mpesa_callback, name='mpesa_callback'),

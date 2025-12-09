@@ -1,2 +1,41 @@
-
 env
+# Common ignores
+node_modules/
+dist/
+build/
+out/
+
+# Env/config
+.env
+.env.local
+.env.*.local
+
+# Logs and temp files
+*.log
+npm-debug.log*
+yarn-debug.log*
+*.tmp
+.tmp/
+cache/
+.cache/
+
+# IDEs / editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python artifacts (if present)
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Misc
+coverage/
+coverage-final.json
+*.bak
+

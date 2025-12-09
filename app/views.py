@@ -221,6 +221,12 @@ def my_bookings(request):
     bookings = request.user.bookings.all()
     context = {'bookings': bookings}
     return render(request, 'app/my_bookings.html', context)
+@login_required
+def my_appointments (request):
+    psychologist_profile = get_object_or_404(Psychologist, user=request.user)
+    appointments = Booking.objects.filter(psychologist=psychologist_profile)
+    context = {'appointments': appointments}
+    return render(request, 'app/my_appointments.html', context)
 
 # M-Pesa Payment Integration
 @login_required
