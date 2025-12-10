@@ -93,6 +93,10 @@ def create_article(request):
     else:
         form = ArticleForm()
     return render(request, 'app/create_article.html', {'form': form})
+def view_article(request, article_id):
+    article = get_object_or_404(Article, id=article_id)
+    context = {'article': article}
+    return render(request, 'app/view_article.html', context)
 
 @login_required
 def edit_article(request, article_id):
@@ -227,6 +231,11 @@ def my_appointments (request):
     appointments = Booking.objects.filter(psychologist=psychologist_profile)
     context = {'appointments': appointments}
     return render(request, 'app/my_appointments.html', context)
+@login_required
+def view_appointment(request, appointment_id):
+    appointment = get_object_or_404(Booking, id=appointment_id)
+    context = {'appointment': appointment}
+    return render(request, 'app/view_appointment.html', context)
 
 # M-Pesa Payment Integration
 @login_required

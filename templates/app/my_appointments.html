@@ -11,7 +11,6 @@
                     <tr>
                         <th>Client Name</th>
                         <th>Date</th>
-                        {% comment %} <th>Time</th> {% endcomment %}
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -21,13 +20,13 @@
                     <tr>
                         <td>{{ appointment.user.username }} </td>
                         <td>{{ appointment.scheduled_date }}</td>
-                        {% comment %} <td>{{ appointment.started_at }}</td> {% endcomment %}
+                        
                         <td>
                             <span class="badge bg-info">{{ appointment.status }}</span>
                         </td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-primary">View</a>
-                            <a href="#" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="{% url 'view_appointment' appointment.id %}" class="btn btn-sm btn-primary">View</a>
+                            
                         </td>
                     </tr>
                     {% endfor %}

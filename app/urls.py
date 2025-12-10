@@ -16,6 +16,7 @@ urlpatterns = [
     # Insights (Articles)
     path('insights/', views.insights, name='insights'),
     path('insights/create/', views.create_article, name='create_article'),
+    path('insights/<int:article_id>/', views.view_article, name='view_article'),
     path('insights/<int:article_id>/edit/', views.edit_article, name='edit_article'),
     path('insights/<int:article_id>/delete/', views.delete_article, name='delete_article'),
     path('insights/<int:article_id>/like/', views.like_article, name='like_article'),
@@ -30,6 +31,7 @@ urlpatterns = [
     path('consultations/<int:psychologist_id>/book/', views.book_consultation, name='book_consultation'),
     path('my-bookings/', views.my_bookings, name='my_bookings'),
     path('my-appointments/', views.my_appointments, name='my_appointments'),
+    path('appointment/<int:appointment_id>/', views.view_appointment, name='view_appointment'),
     
     # Payments
     

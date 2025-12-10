@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{# View a single article. Follows structure/styling used in my_insights.html #}
+{% block title %}{{ article.title|default:"Article" }} - Mind Check{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+    <div class="card shadow-sm">
+        
+        <div class="card-body">
+            <h1 class="card-title mb-1">{{ article.title }}</h1>
+            <div class="text-muted small mb-3">
+                By
+                {% if article.author %}
+                    {{ article.author.username }}
+                {% else %}
+                    Anonymous
+                {% endif %}
+                • {{ article.created_at|date:"F j, Y" }}
+                {% if article.updated_at and article.updated_at > article.created_at %}
+                    (updated {{ article.updated_at|date:"F j, Y" }})
+                {% endif %}
+            </div>
+
+            <div class="article-content mb-4">
+                {{ article.content|safe }}
+            </div>
+              
+        </div>
+         <div class="card-footer d-flex gap-2">
+            <a href="{% url 'insights' %}" class="btn btn btn-dark mb-3"> Back to insights</a>
+        </div>
+        
+    </div>
+
+</div>
+{% endblock %}
